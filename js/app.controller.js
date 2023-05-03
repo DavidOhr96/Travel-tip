@@ -10,7 +10,6 @@ window.onDeleteLocation = onDeleteLocation
 window.onMyLocation = onMyLocation
 window.onSearchLocation = onSearchLocation
 
-
 function onInit() {
   mapService
     .initMap()
@@ -18,7 +17,7 @@ function onInit() {
       console.log('Map is ready')
     })
     .catch((err) => console.log(err))
-    getParams()
+  getParams()
   renderLocationsTable()
 }
 
@@ -71,10 +70,8 @@ function renderLocationsTable() {
 function onUserGo(id) {
   locService.getLocationById(id).then((res) => {
     mapService.panTo(res.lat, res.lng)
-    setQueryStringParams(res.lat,res.lng)
-    })
-
-
+    setQueryStringParams(res.lat, res.lng)
+  })
 }
 function onDeleteLocation(id) {
   locService.deleteLocation(id).then(() => {
@@ -94,7 +91,7 @@ function showPosition(locationObj) {
     lng: locationObj.coords.longitude,
   }
   mapService.panTo(myLocCoords.lat, myLocCoords.lng)
-  setQueryStringParams(myLocCoords.lat,myLocCoords.lng)
+  setQueryStringParams(myLocCoords.lat, myLocCoords.lng)
 }
 
 function onSearchLocation() {
@@ -107,21 +104,22 @@ function onSearchLocation() {
       console.log('res', res)
       const { lat, lng } = res.results[0].geometry.location
       mapService.panTo(lat, lng)
-      setQueryStringParams(lat,lng)
+      setQueryStringParams(lat, lng)
       locService.createLocation(name, lat, lng).then(() => {
         renderLocationsTable()
       })
     })
 }
-function getParams(){
+function getParams() {
   const queryStringParams = new URLSearchParams(window.location.search)
-  let lat=queryStringParams.get('lat')
-  let lng=queryStringParams.get('lng')
-  console.log(lat,lng)
-    mapService.panTo(lat, lng)
-    setQueryStringParams(lat,lng)
+  let lat = queryStringParams.get('lat')
+  let lng = queryStringParams.get('lng')
+  console.log(lat, lng)
+  if (!lat || !lng) return
+  mapService.panTo(lat, lng)
+  setQueryStringParams(lat, lng)
 }
-function setQueryStringParams(lat,lng) {
+function setQueryStringParams(lat, lng) {
   const queryStringParams = `?lat=${lat}&lng=${lng}`
   const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + queryStringParams
   window.history.pushState({ path: newUrl }, '', newUrl)
