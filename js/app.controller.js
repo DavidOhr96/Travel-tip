@@ -8,6 +8,7 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onUserGo = onUserGo
 window.onDeleteLocation = onDeleteLocation
+window.onMyLocation=onMyLocation
 
 function onInit() {
   mapService
@@ -87,4 +88,11 @@ function onMyLocation(){
   } else {
     alert('Geolocation is not supported by this browser.')
   }
+}
+function showPosition(locationObj){
+  const myLocCoords={
+    lat:locationObj.coords.latitude ,
+    lng:locationObj.coords.longitude
+  }
+  mapService.panTo(myLocCoords.lat,myLocCoords.lng)
 }

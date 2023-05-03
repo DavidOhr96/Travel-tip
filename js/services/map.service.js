@@ -41,9 +41,9 @@ async function initMap() {
 function addMarker(coords) {}
 
 function panTo(lat, lng) {
-  const place = getLocationById(placeId)
+  // const place = getLocationById(placeId)
   map.setCenter({lat, lng})
-  map.setZoom(place.zoom)
+  map.setZoom(13)
 
 
 }
