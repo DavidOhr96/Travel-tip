@@ -4,6 +4,7 @@ export const locService = {
   getLocs,
   createLocation,
   getLocationById,
+  deleteLocation,
 }
 
 const STORAGE_ID = 'locations'
@@ -26,4 +27,8 @@ function createLocation(name, lat, lng, weather = '', createdAt = Date.now(), up
 
 function getLocationById(id) {
   return storageService.get(STORAGE_ID, id)
+}
+
+function deleteLocation(id) {
+  return storageService.remove(STORAGE_ID, id)
 }
