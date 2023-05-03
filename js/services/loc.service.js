@@ -1,4 +1,4 @@
-import { storageService } from './async-storage.service'
+import { storageService } from './async-storage.service.js'
 
 export const locService = {
   getLocs,
@@ -12,7 +12,7 @@ function getLocs() {
   return storageService.query(STORAGE_ID)
 }
 
-function createLocation(name, lat, lng, weather, createdAt, updatedAt) {
+function createLocation(name, lat, lng, weather = '', createdAt = Date.now(), updatedAt) {
   const loc = {
     name,
     lat,
