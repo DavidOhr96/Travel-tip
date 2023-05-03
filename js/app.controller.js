@@ -8,7 +8,8 @@ window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
 window.onUserGo = onUserGo
 window.onDeleteLocation = onDeleteLocation
-window.onMyLocation=onMyLocation
+window.onMyLocation = onMyLocation
+window.onSearchLocation = onSearchLocation
 
 function onInit() {
   mapService
@@ -82,17 +83,23 @@ function onUserGo(id) {
 function onDeleteLocation(id) {
   locService.deleteLocation(id)
 }
-function onMyLocation(){
+function onMyLocation() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(showPosition)
   } else {
     alert('Geolocation is not supported by this browser.')
   }
 }
-function showPosition(locationObj){
-  const myLocCoords={
-    lat:locationObj.coords.latitude ,
-    lng:locationObj.coords.longitude
+function showPosition(locationObj) {
+  const myLocCoords = {
+    lat: locationObj.coords.latitude,
+    lng: locationObj.coords.longitude
   }
-  mapService.panTo(myLocCoords.lat,myLocCoords.lng)
+  mapService.panTo(myLocCoords.lat, myLocCoords.lng)
+}
+
+function onSearchLocation() {
+  let loc = document.querySelector('.search-loc').value
+  loc=loc.replace(' ','+')
+locService.getCoordsFromSearch(loc)
 }
