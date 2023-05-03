@@ -44,6 +44,6 @@ function panTo(lat, lng) {
   // const place = getLocationById(placeId)
   map.setCenter({lat, lng})
   map.setZoom(13)
-
+  
 
 }

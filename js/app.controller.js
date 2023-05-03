@@ -45,6 +45,7 @@ function onGetLocs() {
 function onPanTo() {
   console.log('Panning the Map')
   mapService.panTo(35.6895, 139.6917)
+  setQueryStringParams(35.6895, 139.6917)
 }
 
 function renderLocationsTable() {
@@ -68,7 +69,12 @@ function renderLocationsTable() {
   })
 }
 function onUserGo(id) {
-  locService.getLocationById(id).then((res) => mapService.panTo(res.lat, res.lng))
+  locService.getLocationById(id).then((res) => {
+    mapService.panTo(res.lat, res.lng)
+    setQueryStringParams(res.lat,res.lng)
+    })
+
+
 }
 function onDeleteLocation(id) {
   locService.deleteLocation(id).then(() => {
@@ -88,6 +94,7 @@ function showPosition(locationObj) {
     lng: locationObj.coords.longitude,
   }
   mapService.panTo(myLocCoords.lat, myLocCoords.lng)
+  setQueryStringParams(myLocCoords.lat,myLocCoords.lng)
 }
 
 function onSearchLocation() {
@@ -100,6 +107,7 @@ function onSearchLocation() {
       console.log('res', res)
       const { lat, lng } = res.results[0].geometry.location
       mapService.panTo(lat, lng)
+      setQueryStringParams(lat,lng)
       locService.createLocation(name, lat, lng).then(() => {
         renderLocationsTable()
       })
@@ -111,9 +119,10 @@ function getParams(){
   let lng=queryStringParams.get('lng')
   console.log(lat,lng)
     mapService.panTo(lat, lng)
+    setQueryStringParams(lat,lng)
 }
-function setQueryStringParams(queryParams) {
-  const queryStringParams = getQueryStringParams() + '&book=' + (gCurrentlyReadBook ? gCurrentlyReadBook.id : '') + '&lang=' + getLang()
+function setQueryStringParams(lat,lng) {
+  const queryStringParams = `?lat=${lat}&lng=${lng}`
   const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + queryStringParams
   window.history.pushState({ path: newUrl }, '', newUrl)
 }
