@@ -83,3 +83,10 @@ function onUserGo(id) {
 function onDeleteLocation(id) {
   locService.deleteLocation(id)
 }
+function onMyLocation(){
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition)
+  } else {
+    alert('Geolocation is not supported by this browser.')
+  }
+}
