@@ -12,20 +12,17 @@
   <body class="main-layout" >
     <h1>TravelTip</h1>
     <div class="buttons">
-      <button onclick="onAddMarker()" class="btn-add-marker">Add Marker Speific Location</button>
-      <button onclick="onGetLocs()" class="btn-get-locs">Get Locations</button>
-      <button onclick="onPanTo()" class="btn-pan">Pan Map to Tokyo</button>
-      <button onclick="onMyLocation()" class="btn-my-loc">Mylocation</button>
-      <input onchange="onSearchLocation()" class="search-loc" placeholder="Search for your favorite place" />
+      <button onclick="onAddMarker()" class="btn btn-add-marker">Add Marker Speific Location</button>
+      <button onclick="onGetLocs()" class="btn btn-get-locs">Get Locations</button>
+      <button onclick="onPanTo()" class="btn btn-pan">Pan Map to Tokyo</button>
+      <button onclick="onMyLocation()" class="btn btn-my-loc">Mylocation</button>
+      <input onchange="onSearchLocation()" class="btn search-loc" placeholder="Search for your favorite place" />
     </div>
     <div class="info-panel">
       <div class="weather-panel"></div>
       <ul class="locations-panel clean-list flex column"></ul>
     </div>
     <div id="map" style="width: 100%; height: 400px"></div>
-
-    <p>You are at: <span class="user-pos"></span></p>
-    <p>Locations:<span class="locs"></span></p>
 
     <script src="KEY/KEY.js"></script>
     <script type="module" src="js/app.controller.js"></script>
