@@ -50,3 +50,13 @@ function onPanTo() {
   console.log('Panning the Map')
   mapService.panTo(35.6895, 139.6917)
 }
+ function onUserGo(LocationId){
+  locService.getLocationById(LocationId)
+  .then(res=>
+    mapService.panTo(res.lat,res.lng)
+    )
+ 
+ }
+ function onDeleteLocation(id){
+  locService.deleteLocation(id)
+ }
