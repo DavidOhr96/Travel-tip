@@ -1,7 +1,6 @@
 /* SETUP */
 @import 'setup/vars.css';
 @import 'setup/typography.css';
-@import 'setup/colors.css';
 
 /* BASICS */
 @import 'basics/base.css';
