@@ -5,7 +5,6 @@ window.onload = onInit
 window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
-window.onGetUserPos = onGetUserPos
 window.onUserGo = onUserGo
 window.onDeleteLocation = onDeleteLocation
 window.onMyLocation = onMyLocation
@@ -42,16 +41,6 @@ function onGetLocs() {
   })
 }
 
-function onGetUserPos() {
-  getPosition()
-    .then((pos) => {
-      console.log('User position is:', pos.coords)
-      document.querySelector('.user-pos').innerText = `Latitude: ${pos.coords.latitude} - Longitude: ${pos.coords.longitude}`
-    })
-    .catch((err) => {
-      console.log('err!!!', err)
-    })
-}
 function onPanTo() {
   console.log('Panning the Map')
   mapService.panTo(35.6895, 139.6917)
@@ -81,7 +70,9 @@ function onUserGo(id) {
   locService.getLocationById(id).then((res) => mapService.panTo(res.lat, res.lng))
 }
 function onDeleteLocation(id) {
-  locService.deleteLocation(id)
+  locService.deleteLocation(id).then(() => {
+    renderLocationsTable()
+  })
 }
 function onMyLocation() {
   if (navigator.geolocation) {
@@ -93,13 +84,23 @@ function onMyLocation() {
 function showPosition(locationObj) {
   const myLocCoords = {
     lat: locationObj.coords.latitude,
-    lng: locationObj.coords.longitude
+    lng: locationObj.coords.longitude,
   }
   mapService.panTo(myLocCoords.lat, myLocCoords.lng)
 }
 
 function onSearchLocation() {
-  let loc = document.querySelector('.search-loc').value
-  loc=loc.replace(' ','+')
-locService.getCoordsFromSearch(loc)
+  const name = document.querySelector('.search-loc').value
+  let loc = name.replace(' ', '+')
+  locService
+    .getCoordsFromSearch(loc)
+    .then((res) => res.json())
+    .then((res) => {
+      console.log('res', res)
+      const { lat, lng } = res.results[0].geometry.location
+      mapService.panTo(lat, lng)
+      locService.createLocation(name, lat, lng).then(() => {
+        renderLocationsTable()
+      })
+    })
 }
