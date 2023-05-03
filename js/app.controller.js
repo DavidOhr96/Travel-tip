@@ -6,6 +6,8 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onUserGo = onUserGo
+window.onDeleteLocation = onDeleteLocation
 
 function onInit() {
   mapService
@@ -55,12 +57,28 @@ function onPanTo() {
 
 function renderLocationsTable() {
   locService.getLocs().then((locs) => {
-    console.log('Locations:', locs)
-    document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
+    let stringHTML = ''
+    stringHTML = locs
+      .map((loc) => {
+        return `
+      <li class="location-item">
+        <h3>${loc.name}</h3>
+        <p>${loc.lat}, ${loc.lng}</p>
+        <p>${loc.createdAt}</p>
+        <div class="location-item-buttons">
+          <button onclick="onUserGo('${loc.id}')" class="btn">Go</button>
+          <button onclick="onDeleteLocation('${loc.id}')" class="btn">Delete</button>
+        </div>
+      </li>
+      `
+      })
+      .join('')
+
+    document.querySelector('.locations-panel').innerHTML = stringHTML
   })
 }
-function onUserGo(LocationId) {
-  locService.getLocationById(LocationId).then((res) => mapService.panTo(res.lat, res.lng))
+function onUserGo(id) {
+  locService.getLocationById(id).then((res) => mapService.panTo(res.lat, res.lng))
 }
 function onDeleteLocation(id) {
   locService.deleteLocation(id)
