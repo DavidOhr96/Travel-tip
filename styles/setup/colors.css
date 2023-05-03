@@ -1,0 +1,33 @@
+:root {
+  --primary-color: #1e293b;
+  --light-primary-color: #e2e8f0;
+  --box-shadow: rgba(226, 232, 240, 0.25);
+  --overlay: rgba(226, 232, 240, 0.55);
+}
+
+.primary-colors,
+.canvas-controls .btn,
+.canvas-controls .btn,
+.canvas-controls .link-btn,
+.canvas-controls .select-font-family,
+.meme-saved {
+  color: var(--primary-color);
+  background-color: var(--light-primary-color);
+}
+
+.primary-colors-reversed,
+.btn.primary-colors-reversed,
+header,
+nav.fixed {
+  background-color: var(--primary-color);
+  color: var(--light-primary-color);
+}
+
+.saved-memes-item .saved-memes-item-overlay,
+.gallery-item .gallery-item-overlay {
+  background-color: var(--overlay);
+}
+
+.meme-saved {
+  box-shadow: 0 0 10px var(--primary-color);
+}

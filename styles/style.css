@@ -1,0 +1,24 @@
+/* SETUP */
+@import 'setup/vars.css';
+@import 'setup/typography.css';
+@import 'setup/colors.css';
+
+/* BASICS */
+@import 'basics/base.css';
+@import 'basics/layout.css';
+@import 'basics/helpers.css';
+
+/* COMPONENTS */
+@import 'components/canvas.css';
+@import 'components/header.css';
+@import 'components/canvas-controllers.css';
+
+/* PAGES */
+@import 'pages/page.css';
+@import 'pages/generator.css';
+@import 'pages/saved-memes.css';
+@import 'pages/gallery.css';
+@import 'pages/about.css';
+
+/* MEDIA QUERIS */
+@import 'setup/mq.css';
