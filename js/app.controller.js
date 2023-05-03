@@ -10,6 +10,7 @@ window.onDeleteLocation = onDeleteLocation
 window.onMyLocation = onMyLocation
 window.onSearchLocation = onSearchLocation
 
+
 function onInit() {
   mapService
     .initMap()
@@ -17,7 +18,7 @@ function onInit() {
       console.log('Map is ready')
     })
     .catch((err) => console.log(err))
-
+    getParams()
   renderLocationsTable()
 }
 
@@ -103,4 +104,16 @@ function onSearchLocation() {
         renderLocationsTable()
       })
     })
+}
+function getParams(){
+  const queryStringParams = new URLSearchParams(window.location.search)
+  let lat=queryStringParams.get('lat')
+  let lng=queryStringParams.get('lng')
+  console.log(lat,lng)
+    mapService.panTo(lat, lng)
+}
+function setQueryStringParams(queryParams) {
+  const queryStringParams = getQueryStringParams() + '&book=' + (gCurrentlyReadBook ? gCurrentlyReadBook.id : '') + '&lang=' + getLang()
+  const newUrl = window.location.protocol + '//' + window.location.host + window.location.pathname + queryStringParams
+  window.history.pushState({ path: newUrl }, '', newUrl)
 }
