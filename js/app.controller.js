@@ -63,8 +63,6 @@ function renderLocationsTable() {
         return `
       <li class="location-item">
         <h3>${loc.name}</h3>
-        <p>${loc.lat}, ${loc.lng}</p>
-        <p>${loc.createdAt}</p>
         <div class="location-item-buttons">
           <button onclick="onUserGo('${loc.id}')" class="btn">Go</button>
           <button onclick="onDeleteLocation('${loc.id}')" class="btn">Delete</button>
