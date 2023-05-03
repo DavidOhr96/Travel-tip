@@ -59,3 +59,9 @@ function renderLocationsTable() {
     document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
   })
 }
+function onUserGo(LocationId) {
+  locService.getLocationById(LocationId).then((res) => mapService.panTo(res.lat, res.lng))
+}
+function onDeleteLocation(id) {
+  locService.deleteLocation(id)
+}
