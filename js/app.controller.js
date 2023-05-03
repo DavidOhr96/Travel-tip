@@ -14,6 +14,8 @@ function onInit() {
       console.log('Map is ready')
     })
     .catch((err) => console.log(err))
+
+  renderLocationsTable()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -49,4 +51,11 @@ function onGetUserPos() {
 function onPanTo() {
   console.log('Panning the Map')
   mapService.panTo(35.6895, 139.6917)
+}
+
+function renderLocationsTable() {
+  locService.getLocs().then((locs) => {
+    console.log('Locations:', locs)
+    document.querySelector('.locs').innerText = JSON.stringify(locs, null, 2)
+  })
 }
