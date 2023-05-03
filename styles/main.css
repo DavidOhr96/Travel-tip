@@ -9,16 +9,10 @@
 @import 'basics/helpers.css';
 
 /* COMPONENTS */
-@import 'components/canvas.css';
-@import 'components/header.css';
-@import 'components/canvas-controllers.css';
+/* @import 'components/header.css'; */
 
 /* PAGES */
 @import 'pages/page.css';
-@import 'pages/generator.css';
-@import 'pages/saved-memes.css';
-@import 'pages/gallery.css';
-@import 'pages/about.css';
 
 /* MEDIA QUERIS */
-@import 'setup/mq.css';
+/* @import 'setup/mq.css'; */

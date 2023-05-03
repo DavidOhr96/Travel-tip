@@ -1,2 +1,15 @@
-.page {
+body {
+  margin: 7.6rem;
+}
+
+h1 {
+  grid-column: span 2;
+}
+
+.buttons {
+  grid-column: span 2;
+}
+
+#map {
+  grid-column: 2;
 }

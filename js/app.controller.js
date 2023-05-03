@@ -6,6 +6,8 @@ window.onAddMarker = onAddMarker
 window.onPanTo = onPanTo
 window.onGetLocs = onGetLocs
 window.onGetUserPos = onGetUserPos
+window.onUserGo = onUserGo
+window.onDeleteLocation = onDeleteLocation
 
 function onInit() {
   mapService
@@ -14,6 +16,8 @@ function onInit() {
       console.log('Map is ready')
     })
     .catch((err) => console.log(err))
+
+  renderLocationsTable()
 }
 
 // This function provides a Promise API to the callback-based-api of getCurrentPosition
@@ -50,13 +54,32 @@ function onPanTo() {
   console.log('Panning the Map')
   mapService.panTo(35.6895, 139.6917)
 }
- function onUserGo(LocationId){
-  locService.getLocationById(LocationId)
-  .then(res=>
-    mapService.panTo(res.lat,res.lng)
-    )
- 
- }
- function onDeleteLocation(id){
+
+function renderLocationsTable() {
+  locService.getLocs().then((locs) => {
+    let stringHTML = ''
+    stringHTML = locs
+      .map((loc) => {
+        return `
+      <li class="location-item">
+        <h3>${loc.name}</h3>
+        <p>${loc.lat}, ${loc.lng}</p>
+        <p>${loc.createdAt}</p>
+        <div class="location-item-buttons">
+          <button onclick="onUserGo('${loc.id}')" class="btn">Go</button>
+          <button onclick="onDeleteLocation('${loc.id}')" class="btn">Delete</button>
+        </div>
+      </li>
+      `
+      })
+      .join('')
+
+    document.querySelector('.locations-panel').innerHTML = stringHTML
+  })
+}
+function onUserGo(id) {
+  locService.getLocationById(id).then((res) => mapService.panTo(res.lat, res.lng))
+}
+function onDeleteLocation(id) {
   locService.deleteLocation(id)
- }
+}
